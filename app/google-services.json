@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "355592983628",
+    "firebase_url": "https://statusfaceboook.firebaseio.com",
+    "project_id": "statusfaceboook",
+    "storage_bucket": "statusfaceboook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355592983628:android:2b4c39ad91a9c798",
+        "android_client_info": {
+          "package_name": "com.status.aka.statusfacebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355592983628-fg5obrfbgs4rshjcuf4t883h43gjtbtc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status.aka.statusfacebook",
+            "certificate_hash": "58ef28f73db140c819524a1d1fde7e0c5574e67d"
+          }
+        },
+        {
+          "client_id": "355592983628-p3t41r6o0rgq40u5tae7hqlmdbmrd1td.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNOg8mAq8ErijJn3D-udl_tDmsD2nTlr4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355592983628-p3t41r6o0rgq40u5tae7hqlmdbmrd1td.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

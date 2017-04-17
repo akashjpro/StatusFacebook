@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:padding="5dp"
+    android:background="#f4f3f3"
+    tools:context="com.status.aka.statusfacebook.ReviewStatusActivity">
+
+    <ImageView
+        android:background="#ff002f"
+        android:scaleType="fitXY"
+       android:drawingCacheQuality="auto"
+        android:layout_marginTop="5dp"
+        android:id="@+id/imgStatus"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:src="@drawable/status_fb" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <Button
+            android:id="@+id/btnFavorite"
+            android:background="@drawable/button_background_facebook"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:text="Lưu vào yêu thích"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnPostFb"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_background_facebook"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:text="Đăng Facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

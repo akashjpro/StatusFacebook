@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Set background default and pressed for button login -->
+    <color name="facebook_button_pressed">#151e81</color>
+    <color name="facebook_button_default">#1b2aca</color>
+
+    <color name="bg_action_mode">#757575</color>
+
+    <!-- background toolbar-->
+    <color name="background_toolbar">#ff0015</color>
+
+    <color name="floating_button">#0016ff</color>
+</resources>

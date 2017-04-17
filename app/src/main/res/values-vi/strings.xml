@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Status Facebook</string>
+    <string name="form_login">Đăng nhập</string>
+    <string name="home">Trang chủ</string>
+    <string name="my_heart">Yêu thích</string>
+    <string name="account">Tài khoản</string>
+</resources>
