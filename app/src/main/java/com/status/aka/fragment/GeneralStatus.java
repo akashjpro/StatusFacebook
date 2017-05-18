@@ -28,7 +28,7 @@ public class GeneralStatus extends Fragment {
 
         mArrayListColor = getResources().getStringArray(R.array.aray_color);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(layoutManager);
 

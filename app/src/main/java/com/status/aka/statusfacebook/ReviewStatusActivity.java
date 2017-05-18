@@ -47,7 +47,7 @@ public class ReviewStatusActivity extends AppCompatActivity {
                 Bitmap image = bitmapDrawable.getBitmap();
 
                 SharePhoto photo = new SharePhoto.Builder()
-                        .setBitmap(bitmap
+                        .setBitmap(image
                         )
                         .build();
 

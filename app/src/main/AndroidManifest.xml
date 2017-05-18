@@ -31,8 +31,11 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".EditStatus" />
         <activity android:name=".ReviewStatusActivity" />
-        <activity android:name=".FontActivity"/>
-        <activity android:name=".ColorActivity"></activity>
+        <activity android:name=".FontActivity" />
+        <activity android:name=".ColorActivity" />
+        <activity android:name=".EditColor" />
+        <activity android:name=".ListColor" />
+        <activity android:name=".FontAndColor"></activity>
     </application>
 
 </manifest>

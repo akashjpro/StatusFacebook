@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "355592983628",
-    "firebase_url": "https://statusfaceboook.firebaseio.com",
-    "project_id": "statusfaceboook",
-    "storage_bucket": "statusfaceboook.appspot.com"
+    "project_number": "965426532992",
+    "firebase_url": "https://statusfacebook-d762c.firebaseio.com",
+    "project_id": "statusfacebook-d762c",
+    "storage_bucket": "statusfacebook-d762c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:355592983628:android:2b4c39ad91a9c798",
+        "mobilesdk_app_id": "1:965426532992:android:2b4c39ad91a9c798",
         "android_client_info": {
           "package_name": "com.status.aka.statusfacebook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "355592983628-fg5obrfbgs4rshjcuf4t883h43gjtbtc.apps.googleusercontent.com",
+          "client_id": "965426532992-7slc8b6n9mpn4e7cnkj6vc6sspuau386.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.status.aka.statusfacebook",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "355592983628-p3t41r6o0rgq40u5tae7hqlmdbmrd1td.apps.googleusercontent.com",
+          "client_id": "965426532992-2goikd0lq4tql9d1daqf1ddt427c5dtc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBNOg8mAq8ErijJn3D-udl_tDmsD2nTlr4"
+          "current_key": "AIzaSyAjBesrb5YJiNu1A5cmFnquS41DsjlMazs"
         }
       ],
       "services": {
@@ -37,13 +37,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "355592983628-p3t41r6o0rgq40u5tae7hqlmdbmrd1td.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

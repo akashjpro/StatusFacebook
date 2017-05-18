@@ -18,15 +18,15 @@
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#ffffff"
-                android:centerColor="#ffffff"
-                android:endColor="#ffffff"
-                android:angle="225" />
+                android:startColor="#03fa03"
+                android:centerColor="#fff200"
+                android:endColor="#00faf2"
+                android:angle="270" />
             <stroke
                 android:width="0dp"
                 android:color="#000000" />
             <corners
-                android:radius="10dp" />
+                android:radius="35dp" />
         </shape>
     </item>
 </selector>

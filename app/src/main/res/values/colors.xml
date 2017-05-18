@@ -14,4 +14,8 @@
     <color name="background_toolbar">#ff0015</color>
 
     <color name="floating_button">#0016ff</color>
+
+    <color name="icon_tint_normal">#7a7a7a</color>
+
+    <color name="icon_tint_selected">#fed776</color>
 </resources>

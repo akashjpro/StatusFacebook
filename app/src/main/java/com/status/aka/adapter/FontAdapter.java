@@ -1,6 +1,7 @@
 package com.status.aka.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.status.aka.statusfacebook.FontActivity;
 import com.status.aka.statusfacebook.R;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class FontAdapter extends ArrayAdapter<String> {
     int mLayout;
     List<String> mListFont;
 
-    public FontAdapter(Context mContext, int mLayout, List<String> mListFont) {
+    public FontAdapter(Context mContext, int mLayout, List<String> mListFont ) {
         super(mContext, mLayout, mListFont);
         this.mContext = mContext;
         this.mLayout = mLayout;
@@ -54,10 +56,14 @@ public class FontAdapter extends ArrayAdapter<String> {
 
         Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "font/" + mListFont.get(position));
         holder.txtfont.setTypeface(typeface);
-
+        if (FontActivity.mPosition == position)
+            holder.txtfont.setBackgroundColor(Color.BLUE);
+            holder.txtfont.setBackgroundColor(Color.BLUE);
 
         return rowView;
     }
+
+
 
 
 }

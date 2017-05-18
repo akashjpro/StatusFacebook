@@ -25,8 +25,7 @@
             <stroke
                 android:width="0dp"
                 android:color="#000000" />
-            <corners
-                android:radius="10dp" />
+
         </shape>
     </item>
 </selector>

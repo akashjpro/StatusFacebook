@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-8707500979920735/2957491208");
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
         .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
@@ -74,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null){
-//                    Toast.makeText(MainActivity.this, "Login success!!!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(MainActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
-                }
+//                if (user != null){
+//                    Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }else {
+//                    Toast.makeText(MainActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
+//                }
             }
         };
         loginButton.setReadPermissions("email", "public_profile", "user_birthday",
