@@ -104,7 +104,18 @@ public class FontActivity extends AppCompatActivity{
 
 
         Bundle bundle = getIntent().getExtras();
-        mPosition = bundle.getInt("POSITION_TITLE");
+        if(bundle.getInt("POSITION_TITLE")!= -1) {
+            mPosition = bundle.getInt("POSITION_TITLE");
+
+        }
+        if(bundle.getInt("POSITION_DESIGN")!= -1) {
+            mPosition = bundle.getInt("POSITION_DESIGN");
+
+        }
+        if(bundle.getInt("POSITION_NAME")!= -1) {
+            mPosition = bundle.getInt("POSITION_NAME");
+
+        }
 
         try {
             //Get all data in assets folder

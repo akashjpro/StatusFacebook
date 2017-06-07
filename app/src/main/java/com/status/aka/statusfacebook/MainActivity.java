@@ -74,13 +74,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = mAuth.getCurrentUser();
-//                if (user != null){
-//                    Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }else {
-//                    Toast.makeText(MainActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
-//                }
+                if (user != null){
+                    Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         };
         loginButton.setReadPermissions("email", "public_profile", "user_birthday",

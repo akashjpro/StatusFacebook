@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -44,7 +43,7 @@ public class EditStatus extends AppCompatActivity {
     private TextView txtDesign, txtName, txtLine, txtShow_footer;
     private Button  btnReview;
     private String mStatusFont = "Status Font";
-    private String textStatus = "saveText";
+    private String textStatus = "";
     
 
     private LinearLayout layoutFooter;
@@ -55,13 +54,42 @@ public class EditStatus extends AppCompatActivity {
     private ArrayList<String> mListFont;
     private FirebaseAuth mAuth;
     int REQUEST_CODE_FONT = 123, REQUEST_CODE_COLOR = 111;
-    private final int CODE_TITLE = 0, CODE_DESIGN = 1, CODE_NAME = 2;
-    private int swich_format = 0;
+    int REQUEST_CODE_FONT_DESIGN = 124, REQUEST_CODE_COLOR_DESIGN = 125;
+    int REQUEST_CODE_FONT_NAME = 126, REQUEST_CODE_COLOR_NAME = 127;
     private int POSITION_TITLE = 0;
+    private int POSITION_DESIGN = 0;
+    private int POSITION_NAME = 0;
 
-    private boolean isShowFooter = true, orientationVertical = true;
-    public int indexTextColor = 4 , indexBackground = 0 , indexStartColor = 1,
+    private int POSITION_DESIGN_COLOR = 0;
+    private int POSITION_NAME_COLOR = 5;
+
+    public static int BODER_TYPE_1 = 0;
+    public static int BODER_TYPE_2 = 1;
+    public static int BODER_TYPE_3 = 2;
+    //set color & shap for boder layout
+    public static int borderType = BODER_TYPE_1;
+    public static String shapeLayout = "RECTANGLE";
+
+    //set color & shap for text
+    public static String shapeText   = "RECTANGLE";
+    public static int textColor = 4;
+
+    public static final String TRANSPARENT_COLOR = "#00000000";
+
+    //define orientation color layout from left to right : 0
+    //define orientation color layout from top to bottom : 1
+    //set defaut orientation color layout from left to right : 0
+    public static int orientationColorLayout = 0;
+
+    String[] arrayColor;
+
+
+    private boolean isShowFooter = true;
+    public static boolean orientationVertical = true;
+    public static int indexTextColor = 4 , indexBackground = 0 , indexStartColor = 1,
             indexCenterColor = 2, indexEndColor = 3;
+
+    private boolean isStartOne = false;
 
 
     @Override
@@ -215,6 +243,8 @@ public class EditStatus extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(EditStatus.this, FontActivity.class);
                 intent.putExtra("POSITION_TITLE", POSITION_TITLE);
+                intent.putExtra("POSITION_DESIGN", -1);
+                intent.putExtra("POSITION_NAME", -1);
                 startActivityForResult(intent, REQUEST_CODE_FONT);
             }
         });
@@ -300,13 +330,19 @@ public class EditStatus extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.menuFormat:
+                            case R.id.menuFont:
 //                                swich_format = CODE_DESIGN;
 //                                Toast.makeText(EditStatus.this, "Đã chọn", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(EditStatus.this, FontAndColor.class);
-                                startActivity(intent);
+                                Intent intent = new Intent(EditStatus.this, FontActivity.class);
+                                intent.putExtra("POSITION_TITLE", -1);
+                                intent.putExtra("POSITION_DESIGN", POSITION_DESIGN);
+                                intent.putExtra("POSITION_NAME", -1);
+                                startActivityForResult(intent, REQUEST_CODE_FONT_DESIGN);
                                 break;
-                            case R.id.menuDelete:
+                            case R.id.menuColor:
+                                Intent intentColor = new Intent(EditStatus.this, ListColor.class);
+                                intentColor.putExtra("index", POSITION_DESIGN_COLOR);
+                                startActivityForResult(intentColor, REQUEST_CODE_COLOR_DESIGN);
                                 break;
                         }
                         return false;
@@ -326,11 +362,17 @@ public class EditStatus extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.menuFormat:
-                                Intent intent = new Intent(EditStatus.this, FontAndColor.class);
-                                startActivity(intent);
+                            case R.id.menuFont:
+                                Intent intent = new Intent(EditStatus.this, FontActivity.class);
+                                intent.putExtra("POSITION_TITLE", -1);
+                                intent.putExtra("POSITION_DESIGN", -1);
+                                intent.putExtra("POSITION_NAME", POSITION_NAME);
+                                startActivityForResult(intent, REQUEST_CODE_FONT_NAME);
                                 break;
-                            case R.id.menuDelete:
+                            case R.id.menuColor:
+                                Intent intentColor = new Intent(EditStatus.this, ListColor.class);
+                                intentColor.putExtra("index", POSITION_NAME_COLOR);
+                                startActivityForResult(intentColor, REQUEST_CODE_COLOR_NAME);
                                 break;
                         }
                         return false;
@@ -364,6 +406,22 @@ public class EditStatus extends AppCompatActivity {
         layoutFooter   = (LinearLayout) findViewById(R.id.layoutFooter);
         layoutEdit     = (RelativeLayout) findViewById(R.id.layoutEdit);
         layoutEditText = (LinearLayout) findViewById(R.id.layoutEditText);
+
+        arrayColor = getResources().getStringArray(R.array.aray_color);
+
+        txtDesign.setTextColor(Color.parseColor(arrayColor[POSITION_DESIGN_COLOR]));
+        txtName.setTextColor(Color.parseColor(arrayColor[POSITION_NAME_COLOR]));
+
+        GradientDrawable gd1 = new GradientDrawable();
+        gd1.setShape(GradientDrawable.RECTANGLE);
+
+        if(!shapeText.equals("RECTANGLE")) {
+                gd1.setCornerRadius(15);
+
+        }
+        gd1.setColor(Color.parseColor(arrayColor[5]));
+        edtStatusText.setBackgroundColor(Color.parseColor(arrayColor[5]));
+        layoutEditText.setBackground(gd1);
     }
 
     @Override
@@ -373,7 +431,6 @@ public class EditStatus extends AppCompatActivity {
         edtStatusText.requestFocus();
         edtStatusText.setFocusableInTouchMode(true);
         edtStatusText.setSelection(edtStatusText.getText().length());
-        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -388,21 +445,6 @@ public class EditStatus extends AppCompatActivity {
                 // Save status font, just this app được xài
                 SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-//                switch (swich_format){
-//                    case CODE_TITLE:
-//                        edtStatusText.setTypeface(typeface);
-//                        editor.putString("FONT_TEXT", "font/" + mListFont.get(position));
-//                        break;
-//                    case CODE_DESIGN:
-//                        txtDesign.setTypeface(typeface);
-//                        editor.putString("FONT_DESIGN", "font/" + mListFont.get(position));
-//                        break;
-//                    case CODE_NAME:
-//                        txtName.setTypeface(typeface);
-//                        editor.putString("FONT_NAME", "font/" + mListFont.get(position));
-//                        break;
-//
-//                }
                 edtStatusText.setTypeface(typeface);
                 editor.putString("FONT_TEXT", "font/" + mListFont.get(position));
                 editor.putInt("POSITION_TITLE", position);
@@ -420,17 +462,87 @@ public class EditStatus extends AppCompatActivity {
 
         }
 
-        if (requestCode == REQUEST_CODE_COLOR && resultCode == RESULT_OK && data != null){
-            Bundle bundle = data.getBundleExtra("data");
-            if(bundle != null){
-                indexTextColor = bundle.getInt("indexTextColor", 0);
-                indexBackground = bundle.getInt("indexBackground", 0);
-                indexStartColor = bundle.getInt("indexStartColor", 0);
-                indexCenterColor = bundle.getInt("indexCenterColor", 0);
-                indexEndColor = bundle.getInt("indexEndColor", 0);
-                orientationVertical = bundle.getBoolean("orientationVertical", true);
+        if(requestCode == REQUEST_CODE_FONT_DESIGN && resultCode == RESULT_OK && data != null){
+            int position = data.getIntExtra("position", -1);
+            if(position != -1) {
+                POSITION_DESIGN = position;
+                Typeface typeface = Typeface.createFromAsset(getAssets(), "font/" + mListFont.get(position));
+                // Save status font, just this app được xài
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                txtDesign.setTypeface(typeface);
+                editor.putString("FONT_TEXT_DESIGN", "font/" + mListFont.get(position));
+                editor.putInt("POSITION_DESIGN", position);
 
-                String[] arrayColor = getResources().getStringArray(R.array.aray_color);
+                editor.commit();
+            }
+            if(position == -1) {
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("POSITION_DESIGN", -1);
+                editor.commit();
+            }
+        }
+
+        if(requestCode == REQUEST_CODE_COLOR_DESIGN && resultCode == RESULT_OK && data != null){
+            int position = data.getIntExtra("index", -1);
+            if(position != -1) {
+                POSITION_DESIGN_COLOR = position;
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                txtDesign.setTextColor(Color.parseColor(arrayColor[position]));
+                editor.putInt("POSITION_DESIGN_COLOR", position);
+
+                editor.commit();
+            }
+        }
+
+
+        if(requestCode == REQUEST_CODE_COLOR_NAME && resultCode == RESULT_OK && data != null){
+            int position = data.getIntExtra("index", -1);
+            if(position != -1) {
+                POSITION_NAME_COLOR = position;
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                txtName.setTextColor(Color.parseColor(arrayColor[position]));
+                editor.putInt("POSITION_NAME_COLOR", position);
+
+                editor.commit();
+            }
+        }
+
+
+        if(requestCode == REQUEST_CODE_FONT_NAME && resultCode == RESULT_OK && data != null){
+            int position = data.getIntExtra("position", -1);
+            if(position != -1) {
+                POSITION_NAME = position;
+                Typeface typeface = Typeface.createFromAsset(getAssets(), "font/" + mListFont.get(position));
+                // Save status font, just this app được xài
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                txtName.setTypeface(typeface);
+                editor.putString("FONT_TEXT_NAME", "font/" + mListFont.get(position));
+                editor.putInt("POSITION_NAME", position);
+
+                editor.commit();
+            }else {
+                SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("POSITION_NAME", -1);
+                editor.commit();
+            }
+        }
+
+        if (requestCode == REQUEST_CODE_COLOR && resultCode == RESULT_OK && data != null){
+//            Bundle bundle = data.getBundleExtra("data");
+//            if(bundle != null){
+//                indexTextColor = bundle.getInt("indexTextColor", 0);
+//                indexBackground = bundle.getInt("indexBackground", 0);
+//                indexStartColor = bundle.getInt("indexStartColor", 0);
+//                indexCenterColor = bundle.getInt("indexCenterColor", 0);
+//                indexEndColor = bundle.getInt("indexEndColor", 0);
+//                orientationVertical = bundle.getBoolean("orientationVertical", true);
+
 
                 edtStatusText.setTextColor(Color.parseColor(arrayColor[indexTextColor]));
                 layoutEditText.setBackgroundColor(Color.parseColor(arrayColor[indexBackground]));
@@ -454,69 +566,154 @@ public class EditStatus extends AppCompatActivity {
                 else
                     gd.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
 
-                // Create a 2 pixels width red colored border for drawable
-                //gd.setStroke(2, Color.RED);
-             //   gd.setStroke(4, Color.RED);
-
-                //Made the boder rounded
-                //gd.setCornerRadius(15); // border corner radius
-
-                // finally, apply the GradientDrawable as background
                 layout.setBackground(gd);
 
-            }
+
+
+                GradientDrawable gd1 = new GradientDrawable();
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+                if (!shapeText.equals("RECTANGLE")) {
+                    gd1.setCornerRadius(15);
+                }
+
+                if(borderType != BODER_TYPE_1) {
+                    gd1.setColor(Color.parseColor(TRANSPARENT_COLOR));
+                    edtStatusText.setBackgroundColor(Color.parseColor(TRANSPARENT_COLOR));
+
+                }
+                else {
+                    gd1.setColor(Color.parseColor(arrayColor[indexBackground]));
+                    edtStatusText.setBackgroundColor(Color.parseColor(arrayColor[indexBackground]));
+                }
+                layoutEditText.setBackground(gd1);
+
+
+            //}
         }
     }
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-        SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
-        String font = preferences.getString("FONT_TEXT", "");
+        if(!isStartOne) {
+            isStartOne = true;
+            SharedPreferences preferences = getSharedPreferences(mStatusFont, MODE_PRIVATE);
 
-        int positon = preferences.getInt("POSITION_TITLE", -1);
-        if(positon != -1) {
-            POSITION_TITLE = positon;
+            String font = preferences.getString("FONT_TEXT", "");
+            int positon = preferences.getInt("POSITION_TITLE", -1);
 
-            String fontDesign = preferences.getString("FONT_DESIGN", "");
-            String fontName = preferences.getString("FONT_NAME", "");
-            if (!font.isEmpty()) {
-                Typeface typeface = Typeface.createFromAsset(getAssets(), font);
-                edtStatusText.setTypeface(typeface);
+            String font_design = preferences.getString("FONT_TEXT_DESIGN", "");
+            int positon_design = preferences.getInt("POSITION_DESIGN", -1);
+
+            int position_design_color = preferences.getInt("POSITION_DESIGN_COLOR", 4);
+            txtDesign.setTextColor(Color.parseColor(arrayColor[position_design_color]));
+
+            int position_name_color = preferences.getInt("POSITION_NAME_COLOR", 5);
+            txtName.setTextColor(Color.parseColor(arrayColor[position_name_color]));
+
+            String font_name = preferences.getString("FONT_TEXT_NAME", "");
+            int positon_name = preferences.getInt("POSITION_NAME", -1);
+            if (positon != -1) {
+                POSITION_TITLE = positon;
+                if (!font.isEmpty()) {
+                    Typeface typeface = Typeface.createFromAsset(getAssets(), font);
+                    edtStatusText.setTypeface(typeface);
+                }
+            } else {
+                edtStatusText.setTypeface(null, Typeface.NORMAL);
             }
 
-            if (!fontDesign.isEmpty()) {
-                Typeface typeface = Typeface.createFromAsset(getAssets(), fontDesign);
-                txtDesign.setTypeface(typeface);
+            if (positon_design != -1) {
+                POSITION_DESIGN = positon_design;
+                if (!font_design.isEmpty()) {
+                    Typeface typeface = Typeface.createFromAsset(getAssets(), font_design);
+                    txtDesign.setTypeface(typeface);
+                }
+            } else {
+                txtDesign.setTypeface(null, Typeface.NORMAL);
             }
 
-            if (!fontName.isEmpty()) {
-                Typeface typeface = Typeface.createFromAsset(getAssets(), fontName);
-                txtName.setTypeface(typeface);
+            if (positon_name != -1) {
+                POSITION_NAME = positon_name;
+                if (!font_name.isEmpty()) {
+                    Typeface typeface = Typeface.createFromAsset(getAssets(), font_name);
+                    txtName.setTypeface(typeface);
+                }
+            } else {
+                txtName.setTypeface(null, Typeface.NORMAL);
             }
-        }else {
-            edtStatusText.setTypeface(null, Typeface.NORMAL);
+
+            SharedPreferences preferences1 = getSharedPreferences("colorST", MODE_PRIVATE);
+            String text = preferences1.getString("textST", "");
+            if (text.isEmpty()) {
+                edtStatusText.setText("");
+                edtStatusText.setHint("Nhập Status");
+            } else {
+                edtStatusText.setText(text);
+            }
+
+
+            indexTextColor = preferences1.getInt("indexTextColor", 4);
+            indexBackground = preferences1.getInt("indexBackground", 0);
+            indexStartColor = preferences1.getInt("indexStartColor", 1);
+            indexCenterColor = preferences1.getInt("indexCenterColor", 2);
+            indexEndColor = preferences1.getInt("indexEndColor", 3);
+            orientationVertical = preferences1.getBoolean("orientationVertical", true);
+            shapeText = preferences1.getString("shapeText", "RECTANGLE");
+            borderType = preferences1.getInt("borderType", BODER_TYPE_1);
+
+            GradientDrawable  gd = new GradientDrawable();
+
+            //Specify the shape of drawable
+            gd.setShape(GradientDrawable.RECTANGLE);
+
+            // Set fill colors of drawable
+            gd.setColors(new int[] {
+                    Color.parseColor(arrayColor[indexStartColor]),
+                    Color.parseColor(arrayColor[indexCenterColor]),
+                    Color.parseColor(arrayColor[indexEndColor])
+            });
+
+            if(orientationVertical)
+                gd.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+            else
+                gd.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+
+            layout.setBackground(gd);
+
+
+
+            GradientDrawable gd1 = new GradientDrawable();
+            gd1.setShape(GradientDrawable.RECTANGLE);
+
+            if (!shapeText.equals("RECTANGLE")) {
+                gd1.setCornerRadius(15);
+            }
+
+            if(borderType != BODER_TYPE_1) {
+                gd1.setColor(Color.parseColor(TRANSPARENT_COLOR));
+                edtStatusText.setBackgroundColor(Color.parseColor(TRANSPARENT_COLOR));
+
+            }
+            else {
+                gd1.setColor(Color.parseColor(arrayColor[indexBackground]));
+                edtStatusText.setBackgroundColor(Color.parseColor(arrayColor[indexBackground]));
+            }
+            layoutEditText.setBackground(gd1);
+
+            edtStatusText.setTextColor(Color.parseColor(arrayColor[indexTextColor]));
+
         }
-
-        SharedPreferences preferencesText = getSharedPreferences(textStatus, MODE_PRIVATE);
-        String text = preferencesText.getString("textST", "");
-        if (text.isEmpty()){
-            edtStatusText.setText("");
-            edtStatusText.setHint("Nhập Status");
-        }else {
-            edtStatusText.setText(text);
-        }
-
     }
 
 
-    public static Bitmap loadBitmapFromView(View v) {
-        Bitmap b = Bitmap.createBitmap( v.getLayoutParams().width, v.getLayoutParams().height, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.layout(100, 100, v.getLayoutParams().width, v.getLayoutParams().height);
-        v.draw(c);
-        return b;
-    }
+//    public static Bitmap loadBitmapFromView(View v) {
+//        Bitmap b = Bitmap.createBitmap( v.getLayoutParams().width, v.getLayoutParams().height, Bitmap.Config.ARGB_8888);
+//        Canvas c = new Canvas(b);
+//        v.layout(100, 100, v.getLayoutParams().width, v.getLayoutParams().height);
+//        v.draw(c);
+//        return b;
+//    }
 
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -532,8 +729,8 @@ public class EditStatus extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            String s = edtStatusText.getText().toString().trim();
-            if(s.isEmpty()){
+            textStatus = edtStatusText.getText().toString().trim();
+            if(textStatus.isEmpty()){
                 edtStatusText.setHint("Nhập status...");
                 edtStatusText.setHintTextColor(Color.rgb(207, 207, 207));
                 //edtStatusText.setTy(null, Typeface.NORMAL);
@@ -545,9 +742,18 @@ public class EditStatus extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences preferences = getSharedPreferences(textStatus, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("colorST", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("textST", edtStatusText.getText().toString());
+        textStatus = edtStatusText.getText().toString();
+        editor.putString("textST", textStatus);
+        editor.putInt("indexTextColor", indexTextColor);
+        editor.putInt("indexBackground", indexBackground);
+        editor.putInt("indexStartColor", indexStartColor);
+        editor.putInt("indexCenterColor", indexCenterColor);
+        editor.putInt("indexEndColor", indexEndColor);
+        editor.putBoolean("orientationVertical", orientationVertical);
+        editor.putString("shapeText", shapeText);
+        editor.putInt("borderType", borderType);
         editor.commit();
     }
 }

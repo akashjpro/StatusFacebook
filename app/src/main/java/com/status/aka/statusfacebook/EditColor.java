@@ -7,23 +7,36 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import static com.status.aka.statusfacebook.EditStatus.BODER_TYPE_1;
+import static com.status.aka.statusfacebook.EditStatus.BODER_TYPE_2;
+import static com.status.aka.statusfacebook.EditStatus.BODER_TYPE_3;
+import static com.status.aka.statusfacebook.EditStatus.TRANSPARENT_COLOR;
+import static com.status.aka.statusfacebook.EditStatus.borderType;
+import static com.status.aka.statusfacebook.EditStatus.indexBackground;
+import static com.status.aka.statusfacebook.EditStatus.indexCenterColor;
+import static com.status.aka.statusfacebook.EditStatus.indexEndColor;
+import static com.status.aka.statusfacebook.EditStatus.indexStartColor;
+import static com.status.aka.statusfacebook.EditStatus.indexTextColor;
+import static com.status.aka.statusfacebook.EditStatus.orientationVertical;
+import static com.status.aka.statusfacebook.EditStatus.shapeText;
 
 public class EditColor extends AppCompatActivity {
 
-    EditText edtStatus;
+    TextView txtStatus;
     LinearLayout frameLinearStatus;
     Button buttonColorOritation, buttonOK;
+    Button btnTextColor, btnBackgroundColor, btnStartColor, btnCenterColor, btnEndColor;
     private  String[] arrayColor;
-    String stareColor = "#00FF00", centerColor = "#FFFF00", endColor = "#00faf2";
     final int REQUEST_CODE_TEXT = 111, REQUEST_CODE_BACKGROUND = 112, REQUEST_CODE_START = 113,
               REQUEST_CODE_CENTER = 114,  REQUEST_CODE_END = 115;
 
-    public static int indexTextColor, indexBackground, indexStartColor,
-                      indexCenterColor, indexEndColor;
+//    public static int indexTextColor, indexBackground, indexStartColor,
+//                      indexCenterColor, indexEndColor;
 
-    private boolean orientationVertical;
+    private boolean isOneBackgroundColor = false;
 
 
 
@@ -38,51 +51,51 @@ public class EditColor extends AppCompatActivity {
 
     private void addEvents() {
         //Event change text Color
-        findViewById(R.id.buttonTextColor).setOnClickListener(new View.OnClickListener() {
+        btnTextColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditColor.this, ListColor.class);
-                intent.putExtra("index", indexTextColor);
+                intent.putExtra("index", EditStatus.indexTextColor);
                 startActivityForResult(intent, REQUEST_CODE_TEXT);
             }
         });
 
         //Event change background color
-        findViewById(R.id.buttonBackgroundColor).setOnClickListener(new View.OnClickListener() {
+        btnBackgroundColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditColor.this, ListColor.class);
-                intent.putExtra("index", indexBackground);
+                intent.putExtra("index", EditStatus.indexBackground);
                 startActivityForResult(intent, REQUEST_CODE_BACKGROUND);
             }
         });
 
         //Event change color of frame start
-        findViewById(R.id.buttonColorStart).setOnClickListener(new View.OnClickListener() {
+       btnStartColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditColor.this, ListColor.class);
-                intent.putExtra("index", indexStartColor);
+                intent.putExtra("index", EditStatus.indexStartColor);
                 startActivityForResult(intent, REQUEST_CODE_START);
             }
         });
 
         //Event change color of frame center
-        findViewById(R.id.buttonColorCenter).setOnClickListener(new View.OnClickListener() {
+        btnCenterColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditColor.this, ListColor.class);
-                intent.putExtra("index", indexCenterColor);
+                intent.putExtra("index", EditStatus.indexCenterColor);
                 startActivityForResult(intent, REQUEST_CODE_CENTER);
             }
         });
 
         //Event change color of frame end
-        findViewById(R.id.buttonColorEnd).setOnClickListener(new View.OnClickListener() {
+        btnEndColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditColor.this, ListColor.class);
-                intent.putExtra("index", indexEndColor);
+                intent.putExtra("index", EditStatus.indexEndColor);
                 startActivityForResult(intent, REQUEST_CODE_END);
             }
         });
@@ -97,14 +110,13 @@ public class EditColor extends AppCompatActivity {
                 //Specify the shape of drawable
                 gd.setShape(GradientDrawable.RECTANGLE);
 
+                if (!EditStatus.shapeLayout.equals("RECTANGLE"))
+                    gd.setCornerRadius(15);
 
-                // Create a 2 pixels width red colored border for drawable
-                //gd.setStroke(2, Color.RED);
-                gd.setStroke(4, Color.RED);
                 gd.setColors(new int[]{
-                        Color.parseColor(arrayColor[indexStartColor]),
-                        Color.parseColor(arrayColor[indexCenterColor]),
-                        Color.parseColor(arrayColor[indexEndColor])
+                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
                 });
 
                 if (orientationVertical){
@@ -119,6 +131,8 @@ public class EditColor extends AppCompatActivity {
                 }
 
                 frameLinearStatus.setBackground(gd);
+
+
             }
 
 
@@ -129,27 +143,324 @@ public class EditColor extends AppCompatActivity {
            @Override
            public void onClick(View view) {
                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putInt("indexTextColor", indexTextColor);
-                bundle.putInt("indexBackground", indexBackground);
-                bundle.putInt("indexStartColor", indexStartColor);
-                bundle.putInt("indexCenterColor", indexCenterColor);
-                bundle.putInt("indexEndColor", indexEndColor);
-                bundle.putBoolean("orientationVertical", orientationVertical);
-                intent.putExtra("data", bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("indexTextColor", indexTextColor);
+//                bundle.putInt("indexBackground", indexBackground);
+//                bundle.putInt("indexStartColor", indexStartColor);
+//                bundle.putInt("indexCenterColor", indexCenterColor);
+//                bundle.putInt("indexEndColor", indexEndColor);
+//                bundle.putBoolean("orientationVertical", orientationVertical);
+//                intent.putExtra("data", bundle);
                 setResult(RESULT_OK, intent);
                finish();
            }
        });
 
-        Bundle bundle = getIntent().getBundleExtra("data");
-        if(bundle != null){
-            indexTextColor      = bundle.getInt("indexTextColor", 0);
-            indexBackground     = bundle.getInt("indexBackground", 0);
-            indexStartColor     = bundle.getInt("indexStartColor", 0);
-            indexCenterColor    = bundle.getInt("indexCenterColor", 0);
-            indexEndColor       = bundle.getInt("indexEndColor", 0);
-            orientationVertical = bundle.getBoolean("orientationVertical", true);
+
+
+        findViewById(R.id.border).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isOneBackgroundColor = false;
+                borderType = BODER_TYPE_1;
+                EditStatus.shapeLayout = "RECTANGLE";
+                shapeText   = "OVAL";
+
+                btnBackgroundColor.setVisibility(View.VISIBLE);
+                btnStartColor.setVisibility(View.VISIBLE);
+                btnCenterColor.setVisibility(View.VISIBLE);
+                btnEndColor.setVisibility(View.VISIBLE);
+                buttonColorOritation.setVisibility(View.VISIBLE);
+
+
+                //set boder text
+                GradientDrawable gd = new GradientDrawable();
+
+                gd.setShape(GradientDrawable.RECTANGLE);
+                gd.setColor(Color.parseColor(arrayColor[indexBackground]));
+                gd.setCornerRadius(15);
+                txtStatus.setBackground(gd);
+
+
+                //set boder layout
+                GradientDrawable gd1 = new GradientDrawable();
+
+                //Specify the shape of drawable
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+
+                // Create a 2 pixels width red colored border for drawable
+                //gd.setStroke(2, Color.RED);
+                gd1.setColors(new int[]{
+                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
+                });
+
+                if (orientationVertical){
+                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+                }else {
+                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                }
+
+
+                frameLinearStatus.setBackground(gd1);
+
+
+
+            }
+        });
+
+
+
+        findViewById(R.id.border1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isOneBackgroundColor = false;
+                borderType = BODER_TYPE_1;
+                EditStatus.shapeLayout = "RECTANGLE";
+                shapeText   = "RECTANGLE";
+                btnBackgroundColor.setVisibility(View.VISIBLE);
+                btnStartColor.setVisibility(View.VISIBLE);
+                btnCenterColor.setVisibility(View.VISIBLE);
+                btnEndColor.setVisibility(View.VISIBLE);
+                buttonColorOritation.setVisibility(View.VISIBLE);
+
+
+                //set boder text
+                GradientDrawable gd = new GradientDrawable();
+
+                gd.setShape(GradientDrawable.RECTANGLE);
+                gd.setColor(Color.parseColor(arrayColor[indexBackground]));
+                txtStatus.setBackground(gd);
+
+
+                //set boder layout
+                GradientDrawable gd1 = new GradientDrawable();
+
+                //Specify the shape of drawable
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+
+                // Create a 2 pixels width red colored border for drawable
+                //gd.setStroke(2, Color.RED);
+                gd1.setColors(new int[]{
+                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
+                });
+                if (orientationVertical){
+                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+                }else {
+                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                }
+                frameLinearStatus.setBackground(gd1);
+
+
+
+            }
+        });
+
+//        findViewById(R.id.border2).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                isOneBackgroundColor = false;
+//                EditStatus.borderType = 0;
+//                EditStatus.shapeLayout = "OVAL";
+//                shapeText   = "OVAL";
+//                btnBackgroundColor.setVisibility(View.VISIBLE);
+//                btnStartColor.setVisibility(View.VISIBLE);
+//                btnCenterColor.setVisibility(View.VISIBLE);
+//                btnEndColor.setVisibility(View.VISIBLE);
+//                buttonColorOritation.setVisibility(View.VISIBLE);
+//                GradientDrawable gd = new GradientDrawable();
+//                gd.setShape(GradientDrawable.RECTANGLE);
+//                gd.setColor(Color.parseColor(arrayColor[indexBackground]));
+//                gd.setCornerRadius(15);
+//                txtStatus.setBackground(gd);
+//
+//                //set boder layout
+//                GradientDrawable gd1 = new GradientDrawable();
+//
+//                //Specify the shape of drawable
+//                gd1.setShape(GradientDrawable.RECTANGLE);
+//
+//                gd1.setCornerRadius(15);
+//                gd1.setColors(new int[]{
+//                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+//                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+//                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
+//                });
+//                if (orientationVertical){
+//                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+//
+//                }else {
+//                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+//                }
+//
+//                frameLinearStatus.setBackground(gd1);
+//            }
+//        });
+
+        findViewById(R.id.border3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isOneBackgroundColor = false;
+                borderType = BODER_TYPE_2;
+                EditStatus.shapeLayout = "RECTANGLE";
+                shapeText   = "OVAL";
+                btnBackgroundColor.setVisibility(View.GONE);
+                btnStartColor.setVisibility(View.VISIBLE);
+                btnCenterColor.setVisibility(View.VISIBLE);
+                btnEndColor.setVisibility(View.VISIBLE);
+                buttonColorOritation.setVisibility(View.VISIBLE);
+                txtStatus.setBackgroundColor(Color.parseColor(TRANSPARENT_COLOR));
+
+                //set boder layout
+                GradientDrawable gd1 = new GradientDrawable();
+
+                //Specify the shape of drawable
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+
+                // Create a 2 pixels width red colored border for drawable
+                //gd.setStroke(2, Color.RED);
+                gd1.setColors(new int[]{
+                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
+                });
+                if (orientationVertical){
+                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+                }else {
+                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                }
+                frameLinearStatus.setBackground(gd1);
+            }
+        });
+
+//        findViewById(R.id.border4).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                isOneBackgroundColor = false;
+//                EditStatus.borderType = 1;
+//                EditStatus.shapeLayout = "OVAL";
+//                shapeText   = "OVAL";
+//                btnBackgroundColor.setVisibility(View.GONE);
+//                btnStartColor.setVisibility(View.VISIBLE);
+//                btnCenterColor.setVisibility(View.VISIBLE);
+//                btnEndColor.setVisibility(View.VISIBLE);
+//                buttonColorOritation.setVisibility(View.VISIBLE);
+//                txtStatus.setBackgroundColor(Color.parseColor(EditStatus.TRANSPARENT_COLOR));
+//
+//                //set boder layout
+//                GradientDrawable gd1 = new GradientDrawable();
+//
+//                //Specify the shape of drawable
+//                gd1.setShape(GradientDrawable.RECTANGLE);
+//
+//                gd1.setCornerRadius(15);
+//                gd1.setColors(new int[]{
+//                        Color.parseColor(arrayColor[EditStatus.indexStartColor]),
+//                        Color.parseColor(arrayColor[EditStatus.indexCenterColor]),
+//                        Color.parseColor(arrayColor[EditStatus.indexEndColor])
+//                });
+//                if (orientationVertical){
+//                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+//
+//                }else {
+//                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+//                }
+//                frameLinearStatus.setBackground(gd1);
+//            }
+//        });
+
+        findViewById(R.id.border5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isOneBackgroundColor = true;
+                indexStartColor  = indexBackground;
+                indexCenterColor = indexBackground;
+                indexEndColor    = indexBackground;
+                borderType = BODER_TYPE_3;
+                EditStatus.shapeLayout = "RECTANGLE";
+                shapeText   = "OVAL";
+                btnBackgroundColor.setVisibility(View.VISIBLE);
+                btnStartColor.setVisibility(View.GONE);
+                btnCenterColor.setVisibility(View.GONE);
+                btnEndColor.setVisibility(View.GONE);
+                buttonColorOritation.setVisibility(View.GONE);
+                txtStatus.setBackgroundColor(Color.parseColor(TRANSPARENT_COLOR));
+                //set boder layout
+                GradientDrawable gd1 = new GradientDrawable();
+
+                //Specify the shape of drawable
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+
+                // Create a 2 pixels width red colored border for drawable
+                //gd.setStroke(2, Color.RED);
+                gd1.setColors(new int[]{
+                        Color.parseColor(arrayColor[indexStartColor]),
+                        Color.parseColor(arrayColor[indexCenterColor]),
+                        Color.parseColor(arrayColor[indexEndColor])
+                });
+                if (orientationVertical){
+                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+                }else {
+                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                }
+                frameLinearStatus.setBackground(gd1);
+            }
+        });
+
+//        findViewById(R.id.border6).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                isOneBackgroundColor = true;
+//                indexStartColor  = indexBackground;
+//                indexCenterColor = indexBackground;
+//                indexEndColor    = indexBackground;
+//                EditStatus.borderType = 1;
+//                EditStatus.shapeLayout = "OVAL";
+//                shapeText   = "OVAL";
+//                btnBackgroundColor.setVisibility(View.VISIBLE);
+//                btnStartColor.setVisibility(View.GONE);
+//                btnCenterColor.setVisibility(View.GONE);
+//                btnEndColor.setVisibility(View.GONE);
+//                buttonColorOritation.setVisibility(View.GONE);
+//                txtStatus.setBackgroundColor(Color.parseColor(EditStatus.TRANSPARENT_COLOR));
+//                //set boder layout
+//                GradientDrawable gd1 = new GradientDrawable();
+//
+//                //Specify the shape of drawable
+//                gd1.setShape(GradientDrawable.RECTANGLE);
+//
+//                gd1.setCornerRadius(15);
+//                gd1.setColors(new int[]{
+//                        Color.parseColor(arrayColor[indexStartColor]),
+//                        Color.parseColor(arrayColor[indexCenterColor]),
+//                        Color.parseColor(arrayColor[indexEndColor])
+//                });
+//                if (orientationVertical){
+//                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+//
+//                }else {
+//                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+//                }
+//                frameLinearStatus.setBackground(gd1);
+//            }
+//        });
+//
+
+
+
+
+
 
             // Initialize a new GradientDrawable
             GradientDrawable gd = new GradientDrawable();
@@ -163,29 +474,49 @@ public class EditColor extends AppCompatActivity {
             else
                 gd.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
 
-            // Create a 2 pixels width red colored border for drawable
-            //gd.setStroke(2, Color.RED);
-            gd.setStroke(4, Color.RED);
-            edtStatus.setTextColor(Color.parseColor(arrayColor[indexTextColor]));
-            edtStatus.setBackgroundColor(Color.parseColor(arrayColor[indexBackground]));
+            txtStatus.setTextColor(Color.parseColor(arrayColor[indexTextColor]));
             gd.setColors(new int[]{
                     Color.parseColor(arrayColor[indexStartColor]),
                     Color.parseColor(arrayColor[indexCenterColor]),
                     Color.parseColor(arrayColor[indexEndColor])
             });
 
+
             frameLinearStatus.setBackground(gd);
 
-        }
+            GradientDrawable gd1 = new GradientDrawable();
+            gd1.setShape(GradientDrawable.RECTANGLE);
+
+            if(borderType != BODER_TYPE_1) {
+                gd1.setColor(Color.parseColor(TRANSPARENT_COLOR));
+               // txtStatus.setBackgroundColor(Color.parseColor(TRANSPARENT_COLOR));
+
+            }
+            else {
+                gd1.setColor(Color.parseColor(arrayColor[indexBackground]));
+               // txtStatus.setBackgroundColor(Color.parseColor(arrayColor[indexBackground]));
+            }
+
+            if (!shapeText.equals("RECTANGLE"))
+                gd1.setCornerRadius(15);
+            txtStatus.setBackground(gd1);
+
+
 
     }
 
     private void addControls() {
-        edtStatus            = (EditText) findViewById(R.id.editText);
+        txtStatus            = (TextView) findViewById(R.id.txtStatus);
         frameLinearStatus    = (LinearLayout) findViewById(R.id.layoutFrame);
         arrayColor           = getResources().getStringArray(R.array.aray_color);
         buttonColorOritation = (Button) findViewById(R.id.buttonColorOritation);
         buttonOK             = (Button) findViewById(R.id.buttonOK);
+
+        btnTextColor         = (Button) findViewById(R.id.buttonTextColor);
+        btnBackgroundColor   = (Button) findViewById(R.id.buttonBackgroundColor);
+        btnStartColor        = (Button) findViewById(R.id.buttonColorStart);
+        btnCenterColor       = (Button) findViewById(R.id.buttonColorCenter);
+        btnEndColor          = (Button) findViewById(R.id.buttonColorEnd);
     }
 
     @Override
@@ -205,19 +536,37 @@ public class EditColor extends AppCompatActivity {
 
             gd.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
 
-            // Create a 2 pixels width red colored border for drawable
-            //gd.setStroke(2, Color.RED);
-            gd.setStroke(4, Color.RED);
+
+           if (!EditStatus.shapeLayout.equals("RECTANGLE"))
+                 gd.setCornerRadius(15);
 
 
             if (requestCode == REQUEST_CODE_TEXT && resultCode == RESULT_OK && data != null) {
-                edtStatus.setTextColor(Color.parseColor(arrayColor[position]));
+                txtStatus.setTextColor(Color.parseColor(arrayColor[position]));
                 indexTextColor = position;
             }
 
             if (requestCode == REQUEST_CODE_BACKGROUND && resultCode == RESULT_OK && data != null) {
-                edtStatus.setBackgroundColor(Color.parseColor(arrayColor[position]));
                 indexBackground = position;
+                if (isOneBackgroundColor){
+                    indexStartColor  = indexBackground;
+                    indexCenterColor = indexBackground;
+                    indexEndColor    = indexBackground;
+                }
+                GradientDrawable gd1 = new GradientDrawable();
+                gd1.setShape(GradientDrawable.RECTANGLE);
+
+                if (orientationVertical){
+                    gd1.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+                }else {
+                    gd1.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                }
+
+                if (!shapeText.equals("RECTANGLE"))
+                    gd1.setCornerRadius(15);
+                gd1.setColor(Color.parseColor(arrayColor[position]));
+                txtStatus.setBackground(gd1);
             }
 
             if (requestCode == REQUEST_CODE_START && resultCode == RESULT_OK && data != null) {
@@ -236,6 +585,13 @@ public class EditColor extends AppCompatActivity {
 
                 // Set fill colors of drawable
                 indexEndColor = position;
+            }
+
+            if (orientationVertical){
+                gd.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+
+            }else {
+                gd.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
             }
 
             gd.setColors(new int[]{

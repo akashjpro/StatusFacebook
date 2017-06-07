@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:background="#d6d4d4"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,15 +22,14 @@
             android:background="@drawable/border_khung"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editText"
+            <TextView
+                android:textSize="18sp"
+                android:id="@+id/txtStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/boder_edittext"
-                android:ems="10"
                 android:gravity="center"
-                android:inputType="textPersonName"
                 android:text="Status Facebook" />
 
         </LinearLayout>
@@ -129,6 +129,7 @@
 
 
         <HorizontalScrollView
+            android:padding="2dp"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,32 +146,51 @@
                     android:background="@drawable/border_khung1">
 
                     <TextView
-                        android:id="@+id/border1"
+                        android:layout_margin="10dp"
+                        android:textSize="17sp"
+                        android:id="@+id/border"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/border_edittext1"
+                        android:background="@drawable/boder_edittext"
                         android:text=" status " />
 
                 </LinearLayout>
 
 
                 <LinearLayout
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung">
+                    android:background="@drawable/border_khung1">
 
                     <TextView
-                        android:id="@+id/border"
+                        android:layout_margin="10dp"
+                        android:textSize="17sp"
+                        android:id="@+id/border1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/boder_edittext"
-                        android:text=" status "
-                        android:textStyle="bold" />
+                        android:background="@drawable/border_edittext1"
+                        android:text=" status " />
 
                 </LinearLayout>
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:background="@drawable/border_khung">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/border2"-->
+                        <!--android:textSize="17sp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:background="@drawable/boder_edittext"-->
+                        <!--android:text=" status "/>-->
+
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -180,7 +200,8 @@
 
                     <TextView
                         android:textStyle="bold"
-                        android:id="@+id/border2"
+                        android:textSize="17sp"
+                        android:id="@+id/border3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -189,21 +210,23 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:background="@drawable/border_khung">-->
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="#ffffff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text=" status " />
+                    <!--<TextView-->
+                        <!--android:id="@+id/border4"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="17sp"-->
+                        <!--android:textColor="#ffffff"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:text=" status " />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -212,7 +235,8 @@
                     android:background="#14e629">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/border5"
+                        android:textSize="17sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -224,82 +248,23 @@
 
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung3">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:background="@drawable/border_khung3">-->
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="#ffffff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text=" status " />
+                    <!--<TextView-->
+                        <!--android:id="@+id/border6"-->
+                        <!--android:textSize="17sp"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textColor="#ffffff"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:text=" status " />-->
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung4">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="#ffffff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text=" status " />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/border_edittext1"
-                        android:text=" status " />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/border_edittext1"
-                        android:text=" status " />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_khung1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/border_edittext1"
-                        android:text=" status " />
-
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
 
             </LinearLayout>
